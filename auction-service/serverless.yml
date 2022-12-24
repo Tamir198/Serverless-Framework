@@ -1,0 +1,26 @@
+# Here we define metadata about your service
+service: auction-service
+
+plugins:
+  # Allow app bundling via webpack
+  - serverless-bundle
+  - serverless-pseudo-parameters
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 256
+  stage: ${opt:stage, 'development'}
+  region: us-east-1
+
+functions:
+  createAuction:
+    handler: src/handlers/createAuction.handler
+    events:
+      - http:
+          method: POST
+          path: /auction
+
+custom:
+  bundle:
+    linting: false
