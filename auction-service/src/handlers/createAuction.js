@@ -13,7 +13,9 @@ async function createAuction(event, context) {
   };
 
   //The aws sdk is using callbacks, the promise in here so we can use await
-  await dynamoDb.put({ TableName: "AuctionsTable", Item: auction }).promise();
+  await dynamoDb
+    .put({ TableName: process.env.AUCTIONS_TABLE_NAME, Item: auction })
+    .promise();
 
   return {
     statusCode: 201,
