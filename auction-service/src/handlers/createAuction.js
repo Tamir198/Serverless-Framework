@@ -1,6 +1,8 @@
 import { v4 as uuid } from "uuid";
 import AWS from "aws-sdk";
 
+import middy from "@middy/core";
+
 async function createAuction(event, context) {
   const dynamoDb = new AWS.DynamoDB.DocumentClient();
   const { title } = JSON.parse(event.body);
@@ -23,4 +25,4 @@ async function createAuction(event, context) {
   };
 }
 
-export const handler = createAuction;
+export const handler = middy(createAuction);
